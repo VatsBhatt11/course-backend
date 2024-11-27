@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Invoice</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body,
+            html {
+                margin: 0;
+                padding: 0;
+            }
+
+            .wrapper {
+                margin: auto;
+                height: 100vh;
+                border: 0.5px ridge #f3f3f3;
+                box-shadow: 5px 10px 8px #888888;
+                /* overflow: scroll; */
+                overflow: hidden;
+            }
+
+            #invoice_header {
+                padding: 2rem 2rem 1rem 2rem;
+                height: 100px;
+                border-bottom: 1px solid #f3f3f3;
+            }
+
+            .brand_logo {
+                width: 200px;
+                float: left;
+                display: block;
+                margin: auto
+            }
+
+            .invoice_heading {
+                margin: 0;
+                margin-left: 30vh;
+                font-size: 3rem;
+                text-transform: uppercase;
+                color: #e44672;
+            }
+
+            .invoice_id {
+                text-transform: capitalize;
+                margin: 0;
+                text-align: right;
+            }
+
+            .detail {
+                width: 100%;
+                margin-top: 0.3rem;
+            }
+
+            h4,
+            h5,
+            h6 {
+                margin: 0;
+            }
+
+            #main_body {
+                width: 100%;
+                height: auto;
+                width: 100%;
+            }
+
+            .user_details {
+                margin-left: 1rem;
+                margin-top: 1rem;
+            }
+
+
+            .user_name {
+                text-transform: capitalize;
+                color: #e44672;
+            }
+
+            .user_city {
+                text-transform: capitalize;
+            }
+
+            .text-color {
+                color: gray;
+            }
+
+            .user_particulars {
+                margin-top: 45rem;
+                width: 95%;
+                margin: auto;
+                margin-top: 1rem;
+            }
+
+            table {
+                /* border: none;
+                width: 100%;
+                border-collapse: separate;
+                border-spacing: 0; */
+    table-layout: auto;
+    width: 100%;
+            }
+
+            th,
+            td {
+                padding: 8px;
+                text-align: center;
+                text-transform: capitalize;
+                text-align: left;
+            }
+
+            td {
+                border-bottom: 0.5px solid #f3f3f3;
+                border-top: 0.5px solid #f3f3f3;
+            }
+
+            th.red {
+                background-color: #f3f3f3;
+                color: #e44672;
+                text-transform: uppercase;
+            }
+
+            .total_amt {
+                font-weight: 700;
+                font-size: 18px;
+                padding: 1rem 0rem 1rem 1rem;
+            }
+
+            h1, h3, h4 {
+    font-size: 1.5rem; /* Adjust to avoid text breaking */
+}
+
+            footer {
+                /* display: flex;
+                flex-direction: column;
+                width: 100%;
+                height: auto;
+                /*max-height: 90px;*/
+                /*overflow: hidden;*/
+                /* position: fixed;
+                bottom: 0; */ 
+
+                margin-top: 2rem;
+    position: relative;
+    bottom: 0;
+            }
+
+            .container {
+                width: 95%;
+                height: 150px;
+                margin: auto;
+                margin-top: 2rem
+            }
+
+            .contact_util {
+                margin-top: 0.8rem;
+                vertical-align: middle;
+            }
+
+            .business_e_details {
+                font-size: 12px;
+                width: 50%;
+                margin: auto
+            }
+
+            .business_details {
+                float: left;
+                width: 45%;
+                height: 100%;
+            }
+
+            .business_govt_details {
+                float: right;
+                width: 45%;
+                height: 100%;
+            }
+
+            @media print {
+    body, html {
+        overflow: hidden;
+        height: 100%;
+    }
+
+    .wrapper {
+        page-break-inside: avoid;
+    }
+
+    footer {
+        position: absolute;
+        bottom: 0;
+    }
+}
+
+  </style>
+</head>
+<body>
+  <!-- <div class="container">
+    <div class="header">
+      <h1>Welcome to <%= course.cname %>!</h1>
+    </div>
+    <div class="content">
+      <p>Dear <%= customerDetails.name %>,</p>
+      <p>Thank you for enrolling in "<%= course.cname %>". Your transaction has been successfully processed.</p>
+      <p>Here are your details:</p>
+      <ul>
+        <li>Invoice Number: <%= coursePurchase.invoiceNumber %></li>
+        <li>Total Paid: ₹<%= coursePurchase.totalPaidAmount %></li>
+        <li>Transaction ID: <%= coursePurchase.transactionId %></li>
+      </ul>
+      <p>We are excited to have you on board. Happy learning!</p>
+    </div>
+    <div class="footer">
+      <p>© 2024 Your Company. All rights reserved.</p>
+    </div>
+  </div> -->
+
+  <div class="wrapper">
+    <header id="invoice_header">
+        <img src="../public/logo.png" alt="" class="brand_logo" />
+        <div style="float: right;">
+            <h1 class="invoice_heading">invoice</h1>
+            <div>
+                <div class="detail">
+                    <h4 style="display: inline;">Invoice number : </h4>
+                    <h4 style="display: inline;" class="user_purchase_date text-color"><%= coursePurchase.invoiceNumber %></h4>
+                </div>
+                <div class="detail">
+                    <h4 style="display: inline; padding-right: 0.2rem;">Transaction date &amp; time:</h4>
+                    <h4 style="display: inline;" class="user_purchase_date text-color"><%= coursePurchase.createdAt %></h4>
+                </div>
+            </div>
+        </div>
+    </header>
+    <h3 style="text-align: center; margin-bottom: 0px;"><%= COMPANY_NAME %></h3>
+    <main id="main_body">
+        <div class="container">
+            <div class="business_details">
+                <div class="contact_util">
+                    <h6 style="font-size: 16px;display: inline;">ADDRESS:</h6>
+                    <address style="text-transform: uppercase;display: inline;"><%= COMPANY_ADDRESS %></address>
+                </div>
+
+                <div class="contact_util">
+                    <h6 style="font-size: 16px;display: inline;">PAN:</h6>
+                    <span style="text-transform: uppercase;display: inline;"><%= COMPANY_PAN_NUMBER %></span>
+                </div>
+                <div class="contact_util">
+                    <h6 style="font-size: 16px;display: inline;">STATE:</h6>
+                    <span style="text-transform: uppercase;display: inline;"><%= COMPANY_STATE %></span>
+                </div>
+                <div class="contact_util">
+                    <h6 style="font-size: 16px;display: inline;">HSN:</h6>
+                    <span style="text-transform: uppercase;display: inline;"><%= COMPANY_HSN_NUMBER %></span>
+                </div>
+            </div>
+            <div class="business_govt_details">
+                <div class="contact_util">
+                    <h6 style="font-size: 16px;display: inline;">CIN:</h6>
+                    <span style="text-transform: uppercase;display: inline;"><%= COMPANY_CIN_NUMBER %></span>
+                </div>
+                <div class="contact_util">
+                    <h6 style="font-size: 16px;display: inline;">GSTIN/LUT:</h6>
+                    <span style="text-transform: uppercase;display: inline;"><%= COMPANY_GST_NUMBER %></span>
+                </div>
+                <div class="contact_util">
+                    <h6 style="font-size: 16px;display: inline;">EMAIL:</h6>
+                    <span style="display: inline;"><%= COMPANY_EMAIL %></span>
+                </div>
+            </div>
+        </div>
+        <div class="user_details">
+            <h3 style="text-transform: capitalize; ">user details</h3>
+            <div class="detail">
+                <h4 style="display: inline-block; width: 20%;">Name:</h4>
+                <h4 style="display: inline-block; padding-left: 0.8rem" class="user_name"><%= customerDetails.name %></h4>
+            </div>
+            <div class="detail">
+                <h4 style="display: inline-block; width: 20%;">Place of Supply:</h4>
+                <h4 style="display: inline-block; padding-left: 0.8rem" class="user_city text-color"><%= customerDetails.state %></h4>
+            </div>
+            <div class="detail">
+                <h4 style="display: inline-block; width: 20%;">mobile:</h4>
+                <h4 style="display: inline-block; padding-left: 0.8rem" class=" text-color"><%= customerDetails.mobile %></h4>
+            </div>
+            <div class="detail">
+                <h4 style="display: inline-block; width: 20%;">e-mail:</h4>
+                <h4 style="display: inline-block; padding-left: 0.8rem" class="text-color"><%= customerDetails.email %></h4>
+            </div>
+        </div>
+        <div class="user_particulars" style="margin-top: 3rem">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="red">particulars</th>
+                        <th class="red">amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                           Course Name :  <span style="font-weight: 600"><%= course.cname %></span>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Payment Mode :  <span style="font-weight: 600"><%= coursePurchase.paymentMethod %></span>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Transaction Id :  <span style="font-weight: 600"><%= coursePurchase.transactionId %></span>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <% if(course.price > 0) { %>
+                    <tr>
+                        <td>  Base price of course: (After applying discount-if any): </td>
+                        <td><%= coursePurchase.amountWithoutGst %></td>
+                    </tr>
+                    <% } %>
+                    <% if(course.igst > 0) { %>
+                    <tr>
+                        <td>IGST <%= course.courseGst %> % :</td>
+                        <td><%= coursePurchase.igst %></td>
+                    </tr>
+                    <% } %>
+                    <% if(course.cgst > 0) { %>
+                    <tr>
+                        <td>CGST <%= course.courseGst %> % :</td>
+                        <td><%= coursePurchase.cgst %></td>
+                    </tr>
+                    <% } %>
+                    <% if(course.sgst > 0) { %>
+                    <tr>
+                        <td>SGST <%= course.courseGst %> % :</td>
+                        <td><%= coursePurchase.sgst %></td>
+                    </tr>
+                    <% } %>
+                    <tr>
+                        <td class="total_amt">Total :</td>
+                        <td><%= coursePurchase.totalPaidAmount %></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+    <footer>
+        <div style="width: 100%;">
+            <div style="margin-left: auto; width: 30%;">
+                <img src="../public/sign.png" height="36px" width="62px" />
+                <h5>authorised signature</h5>
+            </div>
+        </div>
+        <div class="business_e_details" style="background-color: #f3f3f3; width: 100%; padding: 1rem 0.5rem 0.5rem 0.5rem;">
+            <div style="width: 50%; margin: auto;">
+                <div  style=" display: inline-block ; margin: auto;margin-left: 2.5rem;">
+                    <img src="../public/phone_icon.svg" alt="" style="display: inline-block; width: 10%; height: auto; margin: auto">
+                    <p style="display: inline-block;margin:0; margin-left: 0.5rem"><%= COMPANY_HELPLINE %></p>
+                </div>
+                <div  style=" display: inline-block ; margin: auto;">
+                    <img style="display: inline-block;" src="../public/home_icon.svg" alt="">
+                    <p style="display: inline-block; margin:0;margin-left: 0.5rem"><%= COMPANY_EMAIL %></p>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+</div>
+</body>
+</html>
